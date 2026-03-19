@@ -1,0 +1,61 @@
+@use "../../shared/styles/variables" as *;
+
+.page {
+  max-width: 500px;
+  margin: 60px auto 0;
+  text-align: center;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 600;
+  color: $color-text;
+  margin-bottom: 8px;
+
+  span { color: $color-primary; }
+}
+
+.subtitle {
+  font-size: 13px;
+  color: $color-text-muted;
+  margin-bottom: 28px;
+  line-height: 1.5;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.stats {
+  display: flex;
+  gap: 0;
+  justify-content: center;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  background: $color-surface;
+  overflow: hidden;
+}
+
+.stat {
+  flex: 1;
+  padding: 16px;
+  border-right: 1px solid $color-border;
+  &:last-child { border-right: none; }
+}
+
+.statNum {
+  display: block;
+  font-size: 22px;
+  font-weight: 600;
+  color: $color-text;
+}
+
+.statLabel {
+  display: block;
+  font-size: 11px;
+  color: $color-text-muted;
+  margin-top: 2px;
+}
