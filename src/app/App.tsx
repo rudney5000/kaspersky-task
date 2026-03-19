@@ -1,11 +1,10 @@
 import '@/shared/styles/index.scss'
-function App() {
+import {Provider} from "react-redux";
+import {store} from "@/app/providers/sotre.ts";
+import {AppRouter} from "@/app/router/AppRouter.tsx";
 
-  return (
-    <>
-      Hello world
-    </>
-  )
-}
-
-export default App
+export const App = () => (
+    <Provider store={store}>
+        <AppRouter/>
+    </Provider>
+)

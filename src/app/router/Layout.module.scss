@@ -1,0 +1,55 @@
+@use "../../shared/styles/variables" as *;
+
+.root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  height: 48px;
+  background: $color-surface;
+  border-bottom: 1px solid $color-border;
+}
+
+.logo {
+  font-size: 15px;
+  font-weight: 600;
+  color: $color-text;
+
+  span {
+    color: $color-primary;
+  }
+}
+
+.links {
+  display: flex;
+  gap: 2px;
+
+  a {
+    padding: 5px 12px;
+    border-radius: $radius-md;
+    font-size: 13px;
+    color: $color-text-muted;
+    transition: all $transition;
+
+    &:hover {
+      color: $color-text;
+      background: $color-border-light;
+    }
+
+    &.active {
+      color: $color-primary;
+      background: $color-row-selected;
+    }
+  }
+}
+
+.main {
+  flex: 1;
+  padding: 20px;
+}
