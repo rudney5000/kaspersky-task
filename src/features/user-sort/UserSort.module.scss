@@ -1,0 +1,19 @@
+@use "../../shared/styles/variables" as *;
+
+.select {
+  padding: 5px 8px;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  background: $color-surface;
+  color: $color-text;
+  font-size: 13px;
+  font-family: $font-body;
+  cursor: pointer;
+  outline: none;
+  transition: border-color $transition;
+  white-space: nowrap;
+
+  &:focus {
+    border-color: $color-primary;
+  }
+}

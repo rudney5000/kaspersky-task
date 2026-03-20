@@ -1,0 +1,49 @@
+@use "../../shared/styles/variables" as *;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.label {
+  font-size: 12px;
+  color: $color-text-muted;
+}
+
+.select {
+  width: 100%;
+  padding: 5px 8px;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  color: $color-text;
+  font-size: 13px;
+  font-family: $font-body;
+  outline: none;
+  cursor: pointer;
+  transition: border-color $transition;
+
+  &:focus { border-color: $color-primary; }
+  &.selectError { border-color: $color-danger; }
+}
+
+.error {
+  font-size: 11px;
+  color: $color-danger;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 4px;
+  padding-top: 12px;
+  border-top: 1px solid $color-border;
+}

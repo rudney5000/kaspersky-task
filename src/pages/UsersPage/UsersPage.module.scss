@@ -39,3 +39,38 @@
   color: $color-text-muted;
   margin-top: 2px;
 }
+
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  padding: 10px 12px;
+}
+
+.searchWrap {
+  flex: 1;
+  min-width: 200px;
+  max-width: 320px;
+}
+
+.sortWrap {
+  flex-shrink: 0;
+}
+
+.state {
+  color: $color-text-muted;
+  font-size: 13px;
+  padding: 16px 0;
+}
+
+.stateError {
+  color: $color-danger;
+  font-size: 13px;
+  padding: 16px 0;
+}
