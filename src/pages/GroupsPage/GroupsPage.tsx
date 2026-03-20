@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useGetUsersQuery } from '@/entities/user/api/userApi'
 import styles from './GroupsPage.module.scss'
+import {Button} from "@/shared/ui/Button/Button.tsx";
 
 const GROUP_META: Record<string, string> = {
     'CDN/CEO':             'Руководство и стратегическое управление',
@@ -36,9 +37,9 @@ export const GroupsPage = () => {
 
     return (
         <div className={styles.page}>
-            <button className={styles.back} onClick={() => navigate('/')}>
+            <Button className={styles.back} onClick={() => navigate('/')}>
                 ← Назад
-            </button>
+            </Button>
 
             <div className={styles.header}>
                 <h1 className={styles.title}>Группы</h1>
