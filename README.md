@@ -3,6 +3,10 @@
 ## Запуск проекта
 
 ```bash
+npm run server
+```
+
+```bash
 npm install
 npm run dev
 ```
