@@ -12,7 +12,7 @@ export const WelcomePage = () => {
                 Система управления персоналом. Просматривайте, добавляйте и удаляйте пользователей и группы.
             </p>
             <div className={styles.actions}>
-                <Button onClick={() => navigate('')}>Пользователи</Button>
+                <Button onClick={() => navigate('/users')}>Пользователи</Button>
                 <Button variant="ghost" onClick={() => navigate('')}>Групп</Button>
             </div>
             <div className={styles.stats}>

@@ -1,11 +1,19 @@
 import styles from './Layout.module.scss'
-import {Outlet} from "react-router-dom";
+import {NavLink, Outlet} from "react-router-dom";
 
 export const Layout = () => {
     return (
         <div className={styles.root}>
             <nav className={styles.nav}>
                 <span className={styles.logo}>Kaspersky<span> users manager</span></span>
+                <div className={styles.links}>
+                    <NavLink to="/" end className={({ isActive }) => isActive ? styles.active: ''}>
+                        Главная
+                    </NavLink>
+                    <NavLink to="/users" end className={({ isActive }) => isActive ? styles.active: ''}>
+                        Пользователи
+                    </NavLink>
+                </div>
             </nav>
             <main className={styles.main}>
                 <Outlet/>
