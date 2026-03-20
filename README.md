@@ -1,73 +1,172 @@
-# React + TypeScript + Vite
+# KUM — Система управления персоналом
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Запуск проекта
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Откройте [http://localhost:5173](http://localhost:5173) в браузере.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Запуск Storybook
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run storybook
 ```
+
+Откройте [http://localhost:6006](http://localhost:6006) для просмотра компонентов.
+
+### Сборка для продакшена
+
+```bash
+npm run build
+npm run build-storybook
+```
+
+---
+
+## Стек технологий
+
+| Инструмент | Назначение |
+|------------|-----------|
+| React 18 + Vite + TypeScript | Основной фреймворк и сборщик |
+| Redux Toolkit + RTK Query | Глобальное состояние и работа с данными |
+| Zod | Валидация форм |
+| SASS (модули) | Стилизация компонентов |
+| React Router v6 | Маршрутизация |
+| Storybook 8 | Документация и демонстрация компонентов |
+
+---
+
+## Бизнес-логика
+
+KUM(Kaspersky Users Manager) решает задачу удобного управления персоналом компании.
+
+### Маршруты
+
+| Путь | Описание |
+|------|----------|
+| `/` | Страница приветствия с ключевой статистикой |
+| `/users` | Таблица пользователей с поиском, сортировкой, добавлением и удалением |
+| `/groups` | Карточки групп с составом участников |
+
+### Основные возможности
+
+**Список пользователей** — отображает всех сотрудников из статичного JSON-файла,
+загруженного через RTK Query. Данные кэшируются в Redux-хранилище и инвалидируются
+автоматически после мутаций (добавление / удаление).
+
+**Поиск** — мультипольный поиск по имени, почте, группе и учётной записи.
+Реализован через хук `useDebounce` (300 мс) внутри компонента `UserSearch`,
+чтобы не вызывать пересчёт при каждом введённом символе.
+Результат фильтрации мемоизирован через `useMemo` в `UsersPage`.
+
+**Сортировка** — клик по заголовку столбца переключает направление сортировки.
+Обработчик `handleSort` обёрнут в `useCallback`, а `UserTable` защищён `React.memo`,
+чтобы не перерисовываться без необходимости.
+
+**Добавление пользователя** — модальное окно с формой и валидацией через Zod.
+Ошибки отображаются на уровне каждого поля. После успешного сохранения
+RTK Query инвалидирует кэш и таблица обновляется без перезагрузки страницы.
+
+**Удаление пользователя** — перед удалением показывается модальное окно подтверждения,
+чтобы исключить случайное удаление. После подтверждения запись мгновенно исчезает
+из списка благодаря инвалидации кэша RTK Query.
+
+**Страница групп** — данные о группах вычисляются из уже закэшированного списка
+пользователей через `useMemo`, без дополнительных запросов к серверу.
+
+---
+
+## Архитектура: Feature-Sliced Design (FSD)
+
+```
+src/
+├── app/                    # Провайдеры, роутер, глобальные стили
+│   ├── providers/store.ts  # Redux store
+│   └── router/             # AppRouter, Layout с навигацией
+│
+├── pages/                  # Страницы-композиции
+│   ├── WelcomePage/        # Страница приветствия
+│   ├── UsersPage/          # Сборка: поиск + сортировка + таблица + форма
+│   └── GroupsPage/         # Сетка карточек групп
+│
+├── features/               # Изолированная бизнес-функциональность
+│   ├── user-search/        # Поиск с debounce
+│   ├── user-sort/          # Хук управления сортировкой
+│   └── user-create/        # Форма добавления + Zod-валидация
+│
+├── entities/
+│   └── user/
+│       ├── api/            # RTK Query: getUsers, addUser, deleteUser
+│       ├── model/          # TypeScript-типы + Zod-схема
+│       └── ui/             # UserTable (React.memo)
+│
+└── shared/
+    ├── ui/                 # Button, Input, Modal, ConfirmModal, Badge
+    ├── hooks/              # useDebounce
+    └── styles/             # SASS-переменные, сброс стилей
+```
+
+---
+
+## Оптимизация производительности
+
+| Приём | Где применяется | Зачем |
+|-------|-----------------|-------|
+| `useDebounce` | `UserSearch` | Задерживает обновление `searchTerm` на 300 мс после последнего ввода |
+| `useMemo` | `UsersPage`, `GroupsPage` | Мемоизирует результат фильтрации и сортировки |
+| `useCallback` | `UsersPage` | Стабильная ссылка на `handleSearch` и `handleSort` |
+| `React.memo` | `UserTable` | Пропускает перерисовку, если пропсы не изменились |
+| RTK Query | `userApi` | Один запрос; мутации инвалидируют только нужный тег |
+
+---
+
+## Storybook: документация компонентов
+
+Storybook содержит истории для всех переиспользуемых компонентов:
+
+| Компонент | Истории |
+|-----------|---------|
+| `Button` | Основная, Опасная, Призрак, Маленькая, Заблокирована, Все варианты |
+| `Input` | Базовый, С ошибкой, С иконкой, Заблокирован |
+| `Badge` | Все группы (9 цветовых вариантов) |
+| `Modal` | Базовый, Добавление пользователя |
+| `ConfirmModal` | Удаление пользователя (интерактивная демонстрация) |
+| `UserTable` | Базовая, Сортировка по почте, Пустая таблица, Один пользователь |
+
+---
+
+## Выводы: проектирование UI вручную и с помощью LLM
+
+### Страница `/users` — спроектирована вручную
+
+Ручное проектирование таблицы потребовало продумать каждую деталь:
+ширину столбцов, индикаторы сортировки, пустые состояния, эффекты при наведении,
+расположение кнопок. Процесс занял больше времени, но дал более осознанный результат.
+Такие решения, как использование моноширинного шрифта для телефона и учётной записи
+или отображение кнопки удаления через ConfirmModal, появились в результате итераций,
+а не из шаблонного подхода.
+
+**Вывод:** ручное проектирование формирует понимание иерархии и компоновки.
+Каждый пиксель имеет обоснование. Это медленнее, но развивает интуицию.
+
+### Страница `/groups` — сгенерирована с помощью LLM
+
+Страница групп была описана на естественном языке и создана за один проход.
+Сетка карточек, список участников с аватарами, иконки, цветные бейджи и
+анимации при наведении появились в результате описания намерения,
+а не ручного размещения элементов. LLM также самостоятельно учёл краевые случаи:
+особое оформление группы «Unmanaged», правильное склонение слова «участник».
+
+**Вывод:** UI с помощью LLM — отличный инструмент для быстрого прототипирования.
+Результат всё равно требует ревью: после генерации были скорректированы
+отступы и цветовые акценты.
+
+### Общий вывод
+
+Оба подхода взаимодополняют друг друга. Ручное проектирование формирует
+глубокое понимание; LLM-ассистированное — ускоряет исполнение.
+Оптимальный рабочий процесс для продакшена: **LLM для первого черновика →
+ручная доработка для полировки и краевых случаев.**
