@@ -13,7 +13,7 @@ export const WelcomePage = () => {
             </p>
             <div className={styles.actions}>
                 <Button onClick={() => navigate('/users')}>Пользователи</Button>
-                <Button variant="ghost" onClick={() => navigate('')}>Групп</Button>
+                <Button variant="ghost" onClick={() => navigate('/groups')}>Групп</Button>
             </div>
             <div className={styles.stats}>
                 <div className={styles.stat}>

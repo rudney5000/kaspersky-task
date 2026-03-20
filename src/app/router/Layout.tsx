@@ -13,6 +13,9 @@ export const Layout = () => {
                     <NavLink to="/users" end className={({ isActive }) => isActive ? styles.active: ''}>
                         Пользователи
                     </NavLink>
+                    <NavLink to="/groups" end className={({ isActive }) => isActive ? styles.active: ''}>
+                        Группы
+                    </NavLink>
                 </div>
             </nav>
             <main className={styles.main}>
