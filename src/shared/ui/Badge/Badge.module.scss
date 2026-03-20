@@ -1,0 +1,12 @@
+@use "../../styles/variables" as *;
+
+.badge {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: $radius-sm;
+  font-size: 12px;
+  white-space: nowrap;
+  background: $color-border-light;
+  color: $color-text;
+  border: 1px solid $color-border;
+}
