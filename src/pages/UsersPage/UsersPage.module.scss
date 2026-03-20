@@ -1,4 +1,4 @@
-@use "../../shared/styles/variables" as *;
+@use '../../shared/styles/variables' as *;
 
 .page {
   max-width: 1100px;
@@ -19,7 +19,9 @@
   border: none;
   padding: 0;
   width: fit-content;
-  &:hover { color: $color-text; }
+  &:hover {
+    color: $color-text;
+  }
 }
 
 .header {
@@ -39,7 +41,6 @@
   color: $color-text-muted;
   margin-top: 2px;
 }
-
 
 .filters {
   display: flex;

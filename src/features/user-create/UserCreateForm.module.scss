@@ -1,4 +1,4 @@
-@use "../../shared/styles/variables" as *;
+@use '../../shared/styles/variables' as *;
 
 .form {
   display: flex;
@@ -30,8 +30,12 @@
   cursor: pointer;
   transition: border-color $transition;
 
-  &:focus { border-color: $color-primary; }
-  &.selectError { border-color: $color-danger; }
+  &:focus {
+    border-color: $color-primary;
+  }
+  &.selectError {
+    border-color: $color-danger;
+  }
 }
 
 .error {

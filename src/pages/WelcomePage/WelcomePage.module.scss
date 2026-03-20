@@ -1,4 +1,4 @@
-@use "../../shared/styles/variables" as *;
+@use '../../shared/styles/variables' as *;
 
 .page {
   max-width: 500px;
@@ -12,7 +12,9 @@
   color: $color-text;
   margin-bottom: 8px;
 
-  span { color: $color-primary; }
+  span {
+    color: $color-primary;
+  }
 }
 
 .subtitle {
@@ -43,7 +45,9 @@
   flex: 1;
   padding: 16px;
   border-right: 1px solid $color-border;
-  &:last-child { border-right: none; }
+  &:last-child {
+    border-right: none;
+  }
 }
 
 .statNum {

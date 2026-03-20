@@ -1,4 +1,4 @@
-@use "../../../shared/styles/variables" as *;
+@use '../../../shared/styles/variables' as *;
 
 .wrapper {
   overflow-x: auto;
@@ -37,14 +37,24 @@
   gap: 4px;
 }
 
-.sortIdle  { color: $color-border; font-size: 10px; }
-.sortActive { color: $color-primary; font-size: 10px; }
+.sortIdle {
+  color: $color-border;
+  font-size: 10px;
+}
+.sortActive {
+  color: $color-primary;
+  font-size: 10px;
+}
 
 .row {
   border-bottom: 1px solid $color-border-light;
 
-  &:last-child { border-bottom: none; }
-  &:hover { background: $color-row-hover; }
+  &:last-child {
+    border-bottom: none;
+  }
+  &:hover {
+    background: $color-row-hover;
+  }
 }
 
 .td {
@@ -62,7 +72,9 @@
 .email {
   color: $color-primary;
   font-size: 13px;
-  &:hover { text-decoration: underline; }
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .checkbox {
