@@ -1,0 +1,60 @@
+@use "../../styles/variables" as *;
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.label {
+  font-size: 12px;
+  color: $color-text-muted;
+}
+
+.inputWrap {
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: $color-text-light;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.input {
+  width: 100%;
+  padding: 5px 8px;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  color: $color-text;
+  font-size: 13px;
+  transition: border-color $transition;
+  outline: none;
+
+  &::placeholder {
+    color: $color-text-light;
+  }
+
+  &:focus {
+    border-color: $color-primary;
+  }
+
+  &.withIcon {
+    padding-left: 28px;
+  }
+
+  &.hasError {
+    border-color: $color-danger;
+  }
+}
+
+.error {
+  font-size: 11px;
+  color: $color-danger;
+}
